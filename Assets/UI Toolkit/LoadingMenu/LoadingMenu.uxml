@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="preview" data-source="project://database/Assets/UI%20Toolkit/MainMenu/Level1.asset?fileID=11400000&amp;guid=db05a39ce9384cc45a37fc6ed04b9799&amp;type=2#Level1" style="flex-grow: 1; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; justify-content: center; align-items: stretch; background-color: rgb(0, 0, 0);">
+        <ui:Image>
+            <Bindings>
+                <ui:DataBinding property="source" data-source-path="image" binding-mode="ToTarget"/>
+            </Bindings>
+        </ui:Image>
+        <ui:Label text="Label" name="phrase" style="color: rgb(255, 255, 255); -unity-text-align: upper-center; -unity-font-style: bold;"/>
+        <ui:ProgressBar value="0.3" title="Loading..." name="bar" high-value="1"/>
+    </ui:VisualElement>
+</ui:UXML>

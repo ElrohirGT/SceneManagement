@@ -1,0 +1,24 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="" style="flex-grow: 1;">
+        <ui:VisualElement data-source="" name="" style="flex-grow: 1; flex-direction: row;">
+            <ui:Button text="&lt;" name="leftBtn"/>
+            <ui:VisualElement data-source="project://database/Assets/UI%20Toolkit/MainMenu/Level1.asset?fileID=11400000&amp;guid=db05a39ce9384cc45a37fc6ed04b9799&amp;type=2#Level1" name="preview" style="flex-grow: 1; flex-direction: row; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
+                <ui:Image scale-mode="ScaleToFit" style="height: 89px; width: 91px; flex-grow: 1;">
+                    <Bindings>
+                        <ui:DataBinding property="source" data-source-path="image" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Image>
+                <ui:Label text="Label" style="color: rgb(255, 255, 255); -unity-text-align: middle-center; flex-grow: 1; -unity-font-style: bold; font-size: 32px;">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="levelName" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:Button text="&gt;" name="rightBtn"/>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:Button text="Play" name="playBtn"/>
+            <ui:Button text="Quit&#10;" name="quitBtn"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
