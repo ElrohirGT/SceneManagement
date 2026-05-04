@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -38,18 +39,27 @@ public class MainMenu : MonoBehaviour
         _leftBtn.clicked += LeftBtnOnclicked;
         _rightBtn.clicked += RightBtnOnclicked;
         _playBtn.clicked += PlayBtnOnclicked;
+        _quitBtn.clicked += QuitBtnOnclicked;
     }
+
+    
 
     private void OnDisable()
     {
         _leftBtn.clicked -= LeftBtnOnclicked;
         _rightBtn.clicked -= RightBtnOnclicked;
         _playBtn.clicked -= PlayBtnOnclicked;
+        _quitBtn.clicked -= QuitBtnOnclicked;
     }
 
     private void PlayBtnOnclicked()
     {
         StartCoroutine(LoadSceneAsync(Current.sceneName));
+    }
+    
+    private void QuitBtnOnclicked()
+    {
+        Application.Quit();
     }
 
     private IEnumerator LoadSceneAsync(string sceneName)
@@ -57,13 +67,15 @@ public class MainMenu : MonoBehaviour
         var op = SceneManager.LoadSceneAsync(sceneName);
         loadingUI.gameObject.SetActive(true);
         loadingUI.SetLevelInfo(Current);
-        SceneManager.sceneLoaded += (arg0, mode) =>
+        UnityAction<Scene, LoadSceneMode> h = (arg0, mode) =>
         {
-            if (arg0.name == sceneName)
-            {
-                SceneManager.LoadScene("PlayerScene", LoadSceneMode.Additive);
-            }
+            if (arg0.name != sceneName) return;
+            
+            SceneManager.LoadScene("PlayerScene", LoadSceneMode.Additive);
+            Manager.Instance.LevelLoadedFromMenu = arg0.name;
         };
+        
+        SceneManager.sceneLoaded += h;
 
         while (op is { isDone: false })
         {
@@ -71,6 +83,8 @@ public class MainMenu : MonoBehaviour
             EventBus.OnLoadingProgressChanged(progress);
             yield return null;
         }
+
+        SceneManager.sceneLoaded -= h;
     }
 
     private void RightBtnOnclicked()

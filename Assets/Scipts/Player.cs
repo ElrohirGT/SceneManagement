@@ -12,9 +12,26 @@ public class Player : MonoBehaviour
 
     private Rigidbody _rg;
     private bool CanJump => _rg.linearVelocity.y == 0;
-    
+
+    private void OnEnable()
+    {
+        Debug.Log("Listening to event...");
+        EventBus.TeleportPlayer += EventBusOnTeleportPlayer;
+    }
+
+    private void EventBusOnTeleportPlayer(Vector3 obj)
+    {
+        Debug.Log("TP player!");
+        gameObject.transform.position = obj;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.TeleportPlayer -= EventBusOnTeleportPlayer;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         _rg = GetComponent<Rigidbody>();
         _moveAction = InputSystem.actions.FindAction("Move");
