@@ -22,7 +22,7 @@ public class LoadTrigger : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log("Done loading second scene!");
+        Debug.Log($"Done loading scene: {sceneName}");
         Destroy(gameObject);
     }
 }
